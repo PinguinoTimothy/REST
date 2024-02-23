@@ -3,21 +3,21 @@
   <groupId>com.example.rest</groupId>
   <artifactId>tema5maven</artifactId>
   <versioning>
-    <lastUpdated>20240222203923</lastUpdated>
+    <lastUpdated>20240223120243</lastUpdated>
     <snapshot>
-      <timestamp>20240222.203923</timestamp>
-      <buildNumber>3</buildNumber>
+      <timestamp>20240223.120243</timestamp>
+      <buildNumber>21</buildNumber>
     </snapshot>
     <snapshotVersions>
       <snapshotVersion>
         <extension>war</extension>
-        <value>1.0-20240222.203923-3</value>
-        <updated>20240222203923</updated>
+        <value>1.0-20240223.120243-21</value>
+        <updated>20240223120243</updated>
       </snapshotVersion>
       <snapshotVersion>
         <extension>pom</extension>
-        <value>1.0-20240222.203923-3</value>
-        <updated>20240222203923</updated>
+        <value>1.0-20240223.120243-21</value>
+        <updated>20240223120243</updated>
       </snapshotVersion>
     </snapshotVersions>
   </versioning>
