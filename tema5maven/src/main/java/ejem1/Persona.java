@@ -1,5 +1,6 @@
 package ejem1;
 
+import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -17,6 +18,7 @@ public class Persona {
 
     private int id;
 
+    @XmlAttribute(name = "idEnGallego")
     public int getId() {
         return this.id;
     }
