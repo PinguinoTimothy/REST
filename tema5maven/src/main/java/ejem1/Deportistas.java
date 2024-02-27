@@ -478,11 +478,11 @@ public class Deportistas {
 
         abrirConexion();
 
-        String query = "select nombre from imagenes where nombre like " + id + "_" + numImagen + "%";
+        String query = "select nombre from imagenes where nombre like '" + id + "_" + numImagen + "_'%";
         try (Statement statement = this.conexion.createStatement()) {
             ResultSet rs = statement.executeQuery(query);
 
-            File imagen = new File("imagenes/" + rs.getString(1));
+            File imagen = new File("C:\\Users\\Ian\\Documents\\GitHub\\REST\\tema5maven\\src\\main\\java\\ejem1\\imagenes\\" + rs.getString(1));
             return Response.ok(new FileInputStream(imagen)).build();
 
         } catch (SQLException e) {
@@ -510,7 +510,7 @@ public class Deportistas {
             String resultado = "<html><title> Imagen</title><body>";
 
             while (rs.next()) {
-                resultado += "<img src='imagenes/" + rs.getString(1) + "'><h1>" + rs.getString(1) + "</h1>";
+                resultado += "<img src='C:\\Users\\Ian\\Documents\\GitHub\\REST\\tema5maven\\src\\main\\java\\ejem1\\imagenes\\" + rs.getString(1) + "'><h1>" + rs.getString(1) + "</h1>";
             }
 
             resultado += "</body></html>";
