@@ -478,13 +478,18 @@ public class Deportistas {
 
         abrirConexion();
 
-        String query = "select nombre from imagenes where nombre like '" + id + "_" + numImagen + "_'%";
+        String query = "select nombre from imagenes where nombre like '" + id + "_" + numImagen + "_%'";
+        System.out.println(query);
         try (Statement statement = this.conexion.createStatement()) {
             ResultSet rs = statement.executeQuery(query);
-
-            File imagen = new File("C:\\Users\\Ian\\Documents\\GitHub\\REST\\tema5maven\\src\\main\\java\\ejem1\\imagenes\\" + rs.getString(1));
-            return Response.ok(new FileInputStream(imagen)).build();
-
+            if (rs.next()) {
+                File imagen = new File(
+                        "C:\\Users\\Ian\\Documents\\GitHub\\REST\\tema5maven\\src\\main\\java\\ejem1\\imagenes\\"
+                                + rs.getString(1));
+                System.out.println(imagen.getAbsolutePath());
+                return Response.ok(new FileInputStream(imagen)).build();
+            } else
+                return Response.status(Status.NOT_FOUND).entity("No se ha encontrado la imagen").build();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
@@ -510,7 +515,8 @@ public class Deportistas {
             String resultado = "<html><title> Imagen</title><body>";
 
             while (rs.next()) {
-                resultado += "<img src='C:\\Users\\Ian\\Documents\\GitHub\\REST\\tema5maven\\src\\main\\java\\ejem1\\imagenes\\" + rs.getString(1) + "'><h1>" + rs.getString(1) + "</h1>";
+                resultado += "<img src='C:\\Users\\Ian\\Documents\\GitHub\\REST\\tema5maven\\src\\main\\java\\ejem1\\imagenes\\"
+                        + rs.getString(1) + "'><h1>" + rs.getString(1) + "</h1>";
             }
 
             resultado += "</body></html>";
