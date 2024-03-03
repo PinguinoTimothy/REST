@@ -24,7 +24,7 @@
     <repository>
     <id>internal.repo</id>
     <name>Internal repo</name>
-    <url>file://C:/Users/Ian/Documents/GitHub/REST/salida</url>
+    <url>file://C:/Users/ianro/Documents/GitHub/REST/salida</url>
     </repository>
     </distributionManagement>
 

@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 
+import jakarta.annotation.Generated;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -484,7 +485,7 @@ public class Deportistas {
             ResultSet rs = statement.executeQuery(query);
             if (rs.next()) {
                 File imagen = new File(
-                        "C:\\Users\\Ian\\Documents\\GitHub\\REST\\tema5maven\\src\\main\\java\\ejem1\\imagenes\\"
+                        "C:\\Users\\ianro\\Documents\\GitHub\\REST\\tema5maven\\src\\main\\java\\ejem1\\imagenes\\"
                                 + rs.getString(1));
                 System.out.println(imagen.getAbsolutePath());
                 return Response.ok(new FileInputStream(imagen)).build();
@@ -515,7 +516,7 @@ public class Deportistas {
             String resultado = "<html><title> Imagen</title><body>";
 
             while (rs.next()) {
-                resultado += "<img src='C:\\Users\\Ian\\Documents\\GitHub\\REST\\tema5maven\\src\\main\\java\\ejem1\\imagenes\\"
+                resultado += "<img src='C:\\Users\\ianro\\Documents\\GitHub\\REST\\tema5maven\\src\\main\\java\\ejem1\\imagenes\\"
                         + rs.getString(1) + "'><h1>" + rs.getString(1) + "</h1>";
             }
 
@@ -529,5 +530,48 @@ public class Deportistas {
             cerrarConexion();
         }
         return "No se ha encontrado la imagen";
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.TEXT_HTML)
+    public String buscarJugador(@PathParam("id") int id) {
+
+        abrirConexion();
+
+        try (Statement statement = conexion.createStatement()) {
+            String query = "Select * from deportistas where id = " + id;
+            ResultSet rs = statement.executeQuery(query);
+            String html = "";
+            if (rs.next()) {
+                String activo;
+                if (rs.getInt("activo") == 1) {
+                    activo = "Activo";
+                } else {
+                    activo = "No Activo";
+                }
+                html = String.format(
+                        "<h1>ID: %s</h1> <h1>Nombre: %s</h1> <h1>Activo: %s</h1><h1>Genero: %s</h1> <h1>Deporte: %s</h1>",
+                        rs.getString("id"), rs.getString("nombre"), activo, rs.getString("genero"),
+                        rs.getString("deporte"));
+                System.out.println(html);
+
+            }
+            query = "Select * from imagenes where id = " + id;
+            rs = statement.executeQuery(query);
+            while (rs.next()) {
+
+                html += String.format(
+                        "<img src = 'C:\\Users\\ianro\\Documents\\GitHub\\REST\\tema5maven\\src\\main\\java\\ejem1\\imagenes\\%s'>",
+                        rs.getString("nombre"));
+                System.out.println(html);
+            }
+            return html;
+
+        } catch (Exception e) {
+        } finally {
+            cerrarConexion();
+        }
+        return null;
     }
 }
